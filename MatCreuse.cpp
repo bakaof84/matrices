@@ -2,29 +2,93 @@
 
 MatCreuse::MatCreuse()
 {
-	if(LireFichierMat1() && LireFichierMat2())
-		cout << "L'ouverture des fichiers a réussi." << endl;
-	else
-		cout << "L'ouverture des fichiers a échoué." << endl;
-	cout << Mat1.tabLignes[1];
-	//Afficher();
+	LireFichierMat1();
+	LireFichierMat2();
+
+	Afficher(Mat1);
+	cout << endl;
+	Afficher(Mat2);
 	//EcrireFichierMat1();
 	//EcrireFichierMat2();
-	//Additionner(Mat1, Mat2, Mat3);
+	Additionner(Mat1, Mat2, Mat3);
 	//Transposee(Mat1);
-	//Afficher(Mat3);
+	cout << endl;
+	Afficher(Mat3);
 }
 
 //Méthodes opérations élémentaires
 
 void MatCreuse::Additionner(Matrice Mat, Matrice Mata, Matrice Matadd)
 {
+	/*
 	for(int i=0 ; i<Mat.tabLignes.size() ; i++)
 	{
-		if((Mat.tabLignes[i] == Mata.tabLignes[i]) && (Mat.tabColonnes[i] == Mata.tabColonnes[i]))
-			Matadd.tabLignes[i] = Mat.tabLignes[i];
-			Matadd.tabColonnes[i] = Mat.tabColonnes[i];
-			Matadd.tabValeurs[i] = Mat.tabValeurs[i] + Mata.tabValeurs[i];
+		for(int j=0 ; j<Mata.tabLignes.size() ; j++)
+		{
+			if((Mat.tabLignes[i] == Mata.tabLignes[j]) && (Mat.tabColonnes[i] == Mata.tabColonnes[j]))
+			{
+				Matadd.tabLignes.push_back(Mat.tabLignes[i]);
+				Matadd.tabColonnes.push_back(Mat.tabColonnes[i]);
+				Matadd.tabValeurs.push_back(Mat.tabValeurs[i] + Mata.tabValeurs[i]);
+				i++;
+			}
+			else if((Mat.tabLignes[i] <= Mata.tabLignes[j]) && (Mat.tabColonnes[i] < Mata.tabColonnes[j]))
+			{
+				Matadd.tabLignes.push_back(Mat.tabLignes[i]);
+				Matadd.tabColonnes.push_back(Mat.tabColonnes[i]);
+				Matadd.tabValeurs.push_back(Mat.tabValeurs[i]);
+				i++;
+			}
+			else if((Mat.tabLignes[i] >= Mata.tabLignes[j]) && (Mat.tabColonnes[i] > Mata.tabColonnes[j]))
+			{
+				Matadd.tabLignes.push_back(ata.tabLignes[j]);
+				Matadd.tabColonnes.push_back(Mata.tabColonnes[j]);
+				Matadd.tabValeurs.push_back(Mata.tabValeurs[j]);
+			}
+		}
+	}*/
+
+	int i=0;
+	int j=0;
+	int tmp;
+	while(i<Mat.tabLignes.size())
+	{
+			if((Mat.tabLignes[i] == Mata.tabLignes[j]) && (Mat.tabColonnes[i] == Mata.tabColonnes[j]))
+			{
+				Matadd.tabLignes.push_back(Mat.tabLignes[i]);
+				Matadd.tabColonnes.push_back(Mat.tabColonnes[i]);
+				tmp = Mat.tabValeurs[i] + Mata.tabValeurs[j];
+				cout << Mat.tabValeurs[0] << Mata.tabValeurs[0];
+				cout << Matadd.tabValeurs[0];
+				cin >> tmp;
+				Matadd.tabValeurs.push_back(tmp);
+				i++;
+				j++;
+			}
+			else if((Mat.tabLignes[i] <= Mata.tabLignes[j]) && (Mat.tabColonnes[i] < Mata.tabColonnes[j]))
+			{
+				Matadd.tabLignes.push_back(Mat.tabLignes[i]);
+				Matadd.tabColonnes.push_back(Mat.tabColonnes[i]);
+				Matadd.tabValeurs.push_back(Mat.tabValeurs[i]);
+				i++;
+			}
+			else if((Mat.tabLignes[i] >= Mata.tabLignes[j]) && (Mat.tabColonnes[i] > Mata.tabColonnes[j]))
+			{
+				Matadd.tabLignes.push_back(Mata.tabLignes[j]);
+				Matadd.tabColonnes.push_back(Mata.tabColonnes[j]);
+				Matadd.tabValeurs.push_back(Mata.tabValeurs[j]);
+				j++;
+			}
+	}
+	
+	cout << endl;
+	cout << Matadd.tabLignes.size() << endl;
+	cout << "ligne  Colonne  Valeur" << endl;
+	for(int i=0 ; i<Mat.tabLignes.size() ; i++)
+	{
+		cout << Mat.tabLignes[i] << "      ";
+		cout << Mat.tabColonnes[i] << "        ";
+		cout << Mat.tabValeurs[i] << endl;
 	}
 }
 
@@ -51,14 +115,14 @@ void MatCreuse::Transposee(Matrice Mat)
 }
 
 //Méthodes de fond
-void MatCreuse::Afficher()
+void MatCreuse::Afficher(Matrice Mat)
 {
 	cout << "ligne  Colonne  Valeur" << endl;
-	for(int i=0 ; i<Mat1.tabLignes.size() ; i++)
+	for(int i=0 ; i<Mat.tabLignes.size() ; i++)
 	{
-		cout << Mat1.tabLignes[i] << "      ";
-		cout << Mat1.tabColonnes[i] << "        ";
-		cout << Mat1.tabValeurs[i] << endl;
+		cout << Mat.tabLignes[i] << "      ";
+		cout << Mat.tabColonnes[i] << "        ";
+		cout << Mat.tabValeurs[i] << endl;
 	}
 }
 
@@ -66,7 +130,8 @@ bool TailleIdentique(Matrice Mat, Matrice Mata)
 {
 	if((Mat.tabLignes.size() == Mata.tabLignes.size()) && (Mat.tabColonnes.size() == Mata.tabColonnes.size()))
 		return true;
-	return false;
+	else
+		return false;
 }
 
 bool MatCreuse::TailleLigCol(Matrice Mat, Matrice Mata)
@@ -155,7 +220,7 @@ bool MatCreuse::LireFichierMat1()
 			for(int j=0 ; j<nbCol ; j++)				//Parcourt des colonnes de la matrice
 			{
 				fichier >> valeurLue;
-				if((valeurLue != 0) && (i == nbLignes-1) && (j == nbCol-1))
+				if((valeurLue != 0) || ((i == nbLignes-1) && (j == nbCol-1)))
 				{
 					Mat1.tabLignes.push_back(i);			//Récupération de la ligne
 					Mat1.tabColonnes.push_back(j);			//Récupération de la colonne
@@ -184,7 +249,7 @@ bool MatCreuse::LireFichierMat2()
 			for(int j=0 ; j<nbCol ; j++)				//Parcourt des colonnes de la matrice
 			{
 				fichier >> valeurLue;
-				if(valeurLue != 0)
+				if((valeurLue != 0) || ((i == nbLignes-1) && (j == nbCol-1)))
 				{
 					Mat2.tabLignes.push_back(i);				//Récupération de la ligne
 					Mat2.tabColonnes.push_back(j);			//Récupération de la colonne

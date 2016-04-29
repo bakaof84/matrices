@@ -7,6 +7,7 @@
 
 using namespace std;
 
+typedef struct Matrice Matrice;
 struct Matrice
 {
 	vector<int> tabLignes;
@@ -33,7 +34,7 @@ class MatCreuse
 	void Transposee(Matrice Mat);
 		
 	//Méthodes de fond
-	void Afficher();
+	void Afficher(Matrice Mat);
 	bool TailleIdentique(Matrice Mat, Matrice Mata);	// Matrices de même taille
 	bool TailleLigCol(Matrice Mat, Matrice Mata);	// mat1.tailleLig = mat2.tailleCol
 	
